@@ -1,70 +1,76 @@
 <!-- css and html source https://medium.com/@aliciagilbert.itsimplified/a-slick-crud-application-built-using-python-with-flask-and-sqlite3-to-teach-simple-mysql-queries-bd75e1109582 -->
 <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{{ url_for('static', filename='styles/styles.css') }}"
+    />
 </head>
 <body>
-        <div class="navbar">
-            <li><a href="./">Home</a></li>
-            <li><a href="./flowers">Flowers</a></li>
-            <li><a href="./sightings">Sightings</a></li>
-            <li><a href="./features">Features</a></li>
-            <li><a href="./members">Members</a></li>
-        </div>
-    
-        {% block content %}
-        {% if 'ten_recent_flowers' in request.url %}
-        <div class="header">
-            <h1>10 Most Recent Sightings of {{tuples[0][0]}}</h1>
-        </div>
-        <table class = 'table' style= 'margin-left: 100px; margin-right: 100px; width: 90%;'>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Person</th>
-                        <th>Location</th>
-                        <th>Sighted</th>
-                    </tr>
-                </thead>
-                {% for tuple in tuples %}
-                    <tr>
-                        <td>{{tuple[0]}}</td>
-                        <td>{{tuple[1]}}</td>
-                        <td>{{tuple[2]}}</td>
-                        <td>{{tuple[3]}}</td>
-                    </tr>
-                {% endfor %}    
-        </table>
+    <div class="navbar">
+        <li><a href="./">Home</a></li>
+        <li><a href="./flowers">Flowers</a></li>
+        <li><a href="./sightings">Sightings</a></li>
+        <li><a href="./features">Features</a></li>
+        <li><a href="./members">Members</a></li>
+    </div>
 
-        {% elif 'sql_update_flowers' in request.url %}
-        <div class="header">
-            <h1>Update Selected Flower Information</h1>
-        </div>
-        <form action = "update_flower" method = "POST" class="update-form">
-            <div class="form-container">
-                <p>Genus<input class="form-control" type= "text" name = "newGenus" style='width: 100%' value='{{oldTuple[0]}}'/></p>
-                <p>Species<input class="form-control" type= "text" name = "newSpecies" style='width: 100%' value='{{oldTuple[1]}}'/></p>
-                <p>Comname<input class="form-control" type= "text" name = "newComname" style='width: 100%' value='{{oldTuple[2]}}'/></p>
-                <input type ="hidden" name = "oldComname" value='{{oldTuple[2]}}' />
-                <p><input class="btn-primary" type = "submit" value = "Update Flower Information" /></p>
-            </div>
-        </form>
-        {% else %}
-    
-        <div class="header">
-            <h1 >Flowers Table</h1>
-        </div>
-    
-        <table class = 'table' style= 'margin-left: 100px; margin-right: 100px; width: 90%;'>
+    {% block content %}
+    {% if 'ten_recent_flowers' in request.url %}
+    <div class="header">
+        <h1>10 Most Recent Sightings of {{tuples[0][0]}}</h1>
+    </div>
+    <table class = 'table' style= 'margin-left: 100px; margin-right: 100px; width: 90%;'>
             <thead>
                 <tr>
-                    <th>Genus</th>
-                    <th>Species</th>
-                    <th>Comname</th>
-                    <th>Update</th>
-                    <th>10 Most Recent Sightings</th>
+                    <th>Name</th>
+                    <th>Person</th>
+                    <th>Location</th>
+                    <th>Sighted</th>
                 </tr>
             </thead>
             {% for tuple in tuples %}
+                <tr>
+                    <td>{{tuple[0]}}</td>
+                    <td>{{tuple[1]}}</td>
+                    <td>{{tuple[2]}}</td>
+                    <td>{{tuple[3]}}</td>
+                </tr>
+            {% endfor %}    
+    </table>
+
+    {% elif 'sql_update_flowers' in request.url %}
+    <div class="header">
+        <h1>Update Selected Flower Information</h1>
+    </div>
+    <form action = "update_flower" method = "POST" class="update-form">
+        <div class="form-container">
+            <p>Genus<input class="form-control" type= "text" name = "newGenus" style='width: 100%' value='{{oldTuple[0]}}'/></p>
+            <p>Species<input class="form-control" type= "text" name = "newSpecies" style='width: 100%' value='{{oldTuple[1]}}'/></p>
+            <p>Comname<input class="form-control" type= "text" name = "newComname" style='width: 100%' value='{{oldTuple[2]}}'/></p>
+            <input type ="hidden" name = "oldComname" value='{{oldTuple[2]}}' />
+            <p><input class="btn-primary" type = "submit" value = "Update Flower Information" /></p>
+        </div>
+    </form>
+    {% else %}
+
+    <div class="container">
+        <div class="header">
+            <h1 >Flowers Table</h1>
+        </div>
+        <div class="table-responsive">
+            <table class = 'table'>
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Genus</th>
+                        <th>Species</th>
+                        <th>Comname</th>
+                        <th>Update</th>
+                        <th>10 Most Recent Sightings</th>
+                    </tr>
+                </thead>
+                {% for tuple in tuples %}
                 <tr>
                     <td>{{tuple[0]}}</td>
                     <td>{{tuple[1]}}</td>
@@ -76,100 +82,10 @@
                         <a href= {{ url_for('sql_get_ten_recent' ,eComname=tuple[2]) }}>Link</a>
                     </td>
                 </tr>
-            {% endfor %}    
-        </table>
-        {% endif %}
-        {% endblock content %}
-</body>
-        
-        
-
-
-    
-
-<style>
-    /* a {
-        text-decoration: none;
-        display: inline-block;
-        padding: 8px 16px;
-    }
-    a:hover {
-        opacity: 80%;
-    }
-    .previous {
-        background-color: rgb(35, 92, 197);
-        color: white;
-    } */
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    
-    table, th, td {
-        border: 1px solid black;
-    }
-
-    th, td {
-        text-align: left;
-        padding: 8px;
-    }
-    td.edit{
-        text-align: center;
-        padding: 8px;
-    }
-
-    tr:nth-child(even){background-color: #f2f2f2}
-
-    th {
-        background-color: blue;
-        color: white;
-        text-align: center;
-    }
-    .header {
-        padding: 20px;
-        text-align: center;
-    }
-
-    .header h1 {
-        font-size: 50px;    
-    }
-    .button-container{
-        padding: 20px;
-    }
-
-    /* navbar */
-    .navbar {
-        list-style-type: none;
-        overflow: hidden;
-        background-color: #333;
-    }
-
-    li {
-        float: left;
-    }
-
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-
-    li a:hover {
-        background-color: #111;
-        color: white;
-        text-decoration: none;
-    }
-    body{
-        margin: 0;
-    }
-
-    .update-form{
-        padding: 50px;
-    }
-    .form-container{
-        padding: 50px;
-    }
-
-</style>
+                {% endfor %}    
+            </table>
+            {% endif %}
+            {% endblock content %}
+        </div>
+    </div>
+    </body>

@@ -1,6 +1,16 @@
 <!-- css and html source https://medium.com/@aliciagilbert.itsimplified/a-slick-crud-application-built-using-python-with-flask-and-sqlite3-to-teach-simple-mysql-queries-bd75e1109582 -->
 <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+        integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous"
+    />
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{{ url_for('static', filename='styles/styles.css') }}"
+    />
 </head>
 <body>
     <div class="navbar">
@@ -10,114 +20,27 @@
         <li><a href="./features">Features</a></li>
         <li><a href="./members">Members</a></li>
     </div>
-
-
-
-    <div class="header">
-        <h1 >Members Table</h1>
+    <div class="container">
+        <div class="header">
+            <h1>Members Table</h1>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Membersince</th>
+                        <th>Numsightings</th>
+                    </tr>
+                </thead>
+                {% for tuple in tuples %}
+                <tr>
+                    <td>{{tuple[0]}}</td>
+                    <td>{{tuple[1]}}</td>
+                    <td>{{tuple[2]}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
-
-    <table class = 'table' style= 'margin-left: 100px; margin-right: 100px; width: 90%;'>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Membersince</th>
-                <th>Numsightings</th>
-            </tr>
-        </thead>
-        {% for tuple in tuples %}
-            <tr>
-                <td>{{tuple[0]}}</td>
-                <td>{{tuple[1]}}</td>
-                <td>{{tuple[2]}}</td>
-            </tr>
-        {% endfor %}    
-    </table>
 </body>
-    
-    
-    
-    
-<style>
-    /* a {
-        text-decoration: none;
-        display: inline-block;
-        padding: 8px 16px;
-    }
-    a:hover {
-        opacity: 80%;
-    }
-    .previous {
-        background-color: rgb(35, 92, 197);
-        color: white;
-    } */
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    
-    table, th, td {
-        border: 1px solid black;
-    }
-
-    th, td {
-        text-align: left;
-        padding: 8px;
-    }
-    td.edit{
-        text-align: center;
-        padding: 8px;
-    }
-
-    tr:nth-child(even){background-color: #f2f2f2}
-
-    th {
-        background-color: blue;
-        color: white;
-        text-align: center;
-    }
-    .header {
-        padding: 20px;
-        text-align: center;
-    }
-
-    .header h1 {
-        font-size: 50px;    
-    }
-    .button-container{
-        padding: 20px;
-    }
-
-    /* navbar */
-    .navbar {
-        list-style-type: none;
-        overflow: hidden;
-        background-color: #333;
-    }
-
-    li {
-        float: left;
-    }
-
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-
-    li a:hover {
-        background-color: #111;
-        color: white;
-        text-decoration: none;
-    }
-    body{
-        margin: 0;
-    }
-
-    .update-form{
-        padding: 50px;
-    }
-
-</style>
